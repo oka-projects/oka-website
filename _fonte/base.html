@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oka · Tecnologia com raiz no futuro</title>
+<meta name="description" content="Sistemas, aplicativos e agentes de IA feitos sob medida.">
+<meta name="theme-color" content="#151414">
+<style>
+/*COMMON_CSS*/
+:root{--bg:#151414;--ink:#FDEADA;--mute:rgba(253,234,218,.62);--line:rgba(253,234,218,.16);--acc:#E08C43;
+  --d-bg:transparent;--d-ink:#FDEADA;--d-mute:rgba(253,234,218,.58);--d-line:rgba(253,234,218,.14);--d-soft:rgba(253,234,218,.1);--d-acc:#FDCE00;--d-acc-ink:#2F2E2E}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:clamp(20px,5vw,64px)}
+.glass{background:linear-gradient(135deg,rgba(253,234,218,.12),rgba(253,234,218,.03));-webkit-backdrop-filter:blur(24px) saturate(1.5);backdrop-filter:blur(24px) saturate(1.5);border:1px solid rgba(253,234,218,.16);box-shadow:inset 0 1px 0 rgba(253,234,218,.28),0 40px 80px -40px rgba(0,0,0,.9)}
+.nav{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:34px;padding:11px 12px 11px 22px;border-radius:99px;width:max-content;max-width:calc(100vw - 24px)}
+.word{height:19px;width:auto;fill:var(--ink)}
+.nav nav{display:flex;gap:26px;font-size:14.5px;color:var(--mute)}
+.nav nav a{transition:color .2s}.nav nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#1C1B1B;font-weight:600;padding:14px 24px;border-radius:99px;transition:transform .3s var(--e),background .2s}
+.btn:hover{transform:translateY(-2px);background:#fff}
+.nav .btn{padding:9px 18px;font-size:14.5px}
+.lnk{font-weight:550;border-bottom:1px solid var(--line);padding-bottom:2px;transition:border-color .2s}
+.lnk:hover{border-color:var(--ink)}
+
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:9vh}
+.hero h1{font-size:clamp(3.2rem,8.4vw,8.8rem);font-weight:500;letter-spacing:-.05em;line-height:.9;max-width:9ch}
+.ln{display:block;overflow:hidden;padding-bottom:.08em}
+.ln>span{display:block;transform:translateY(112%);animation:rise 1.2s var(--e) forwards;animation-delay:calc(.25s + var(--i)*.12s)}
+@keyframes rise{to{transform:none}}
+.hero .row2{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-top:5vh;flex-wrap:wrap}
+.hero p{font-size:clamp(1.05rem,1.45vw,1.3rem);color:var(--mute);max-width:34ch}
+.acts{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.fade{opacity:0;animation:fd 1.2s var(--e) .9s forwards}
+@keyframes fd{to{opacity:1}}
+.cue{position:absolute;right:clamp(20px,5vw,64px);top:50vh;writing-mode:vertical-rl;font-size:12.5px;letter-spacing:.14em;color:var(--mute)}
+
+.sec{padding-block:clamp(90px,16vh,190px)}
+h2{font-size:clamp(2.3rem,5.2vw,5rem);font-weight:500;letter-spacing:-.045em;line-height:.96}
+.sub{color:var(--mute);margin-top:18px;max-width:42ch;font-size:1.1rem}
+.stage{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(32px,6vw,96px);align-items:center}
+.tabs{margin-top:40px;display:grid}
+.tabs button{display:grid;grid-template-columns:1fr auto;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);width:100%}
+.tt{font-size:clamp(1.3rem,2vw,1.8rem);font-weight:500;letter-spacing:-.03em;color:var(--mute);transition:color .3s,transform .5s var(--e)}
+.tabs button:hover .tt{color:var(--ink)}
+.is-active .tt{color:var(--ink);transform:translateX(14px)}
+.tt{position:relative}
+.tt::before{content:"";position:absolute;left:-16px;top:.52em;width:7px;height:7px;border-radius:50%;background:#FDCE00;box-shadow:0 0 16px 4px rgba(253,206,0,.5);opacity:0;transition:opacity .3s}
+.is-active .tt::before{opacity:1}
+.tx{grid-column:1/-1;display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--e)}
+.tx>span{overflow:hidden;color:var(--mute);max-width:40ch;padding-left:14px}
+.tx>span::before{content:"";display:block;height:8px}
+.is-active .tx{grid-template-rows:1fr}
+.panels{display:grid}
+.panels>div{grid-area:1/1;opacity:0;transform:translateY(16px) scale(.98);transition:opacity .5s,transform .8s var(--e);pointer-events:none}
+.panels>.is-active{opacity:1;transform:none;pointer-events:auto}
+.demo{border-radius:22px;border-color:rgba(253,234,218,.16)}
+.panels .demo{font-size:15.5px;min-height:400px;max-width:500px;margin-inline:auto}
+.panels .d-body{padding:22px 20px;gap:12px}
+.b.me{color:#1C1B1B}.phone .pb{color:#1C1B1B}
+
+.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,30px);margin-top:56px}
+.prods .demo{height:344px}
+.prods h3{font-size:1.5rem;font-weight:500;letter-spacing:-.03em;margin-top:24px}
+.prods p{color:var(--mute);font-size:15.5px;margin:8px 0 14px;max-width:34ch}
+.prods .lnk{font-size:15px}
+
+.lv3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,30px);margin:48px 0 36px}
+.lv3 div{padding:26px;border-radius:22px}
+.lv3 h3{font-size:1.5rem;font-weight:500;letter-spacing:-.03em}
+.lv3 p{color:var(--mute);font-size:15.5px;margin-top:10px}
+
+.end{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;padding-bottom:7vh}
+.end h2{font-size:clamp(2.6rem,6.4vw,6.4rem);max-width:13ch}
+.end .acts{justify-content:center;margin-top:34px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;width:100%;margin-top:9vh;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--mute)}
+.foot nav{display:flex;gap:24px}.foot a:hover{color:var(--ink)}
+@media (max-width:860px){
+  .nav nav{display:none}.nav{gap:18px}.cue{display:none}
+  .stage{grid-template-columns:1fr}.prods,.lv3{grid-template-columns:1fr;gap:34px}.lv3{gap:14px}
+  .panels .demo{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){.ln>span{transform:none;animation:none}.fade{opacity:1;animation:none}}
+
+/* entrada: a rolagem mergulha pelo ponto do símbolo (vinda do 06-portal) */
+html,body{overflow-x:clip}
+.intro{height:280vh;position:relative}
+.intro .pin{position:sticky;top:0;height:100svh;overflow:hidden;background:radial-gradient(60vh 60vh at 50% 46%,#FFF3D6,transparent 70%),#FFFCF5;color:#2F2E2E;display:grid;place-items:center;will-change:opacity}
+.intro .top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,5vw,64px)}
+.intro .top .word{height:21px;fill:#2F2E2E}
+.intro .top a.cta{font-weight:600;font-size:15px;padding:10px 20px;border-radius:99px;border:1.5px solid currentColor}
+.mark{position:relative;width:min(38vh,52vw);margin-top:-20vh;transform-origin:49.74% 72.85%;will-change:transform}
+.mark .sym{fill:#2F2E2E;width:100%}.mark .sym .dot{fill:#E08C43}
+.iris{position:absolute;left:49.74%;top:72.85%;width:24.41%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,var(--ic,#E08C43) 60%,#E08C43);transform:translate(-50%,-50%);will-change:transform}
+.ring{position:absolute;left:49.74%;top:72.85%;width:24.41%;aspect-ratio:1;border-radius:50%;border:1.5px solid #E08C43;transform:translate(-50%,-50%);animation:ring 3.2s var(--e) infinite;opacity:0;pointer-events:none}
+.ring+.ring{animation-delay:1.05s}.ring+.ring+.ring{animation-delay:2.1s}
+@keyframes ring{0%{transform:translate(-50%,-50%) scale(1);opacity:.75}100%{transform:translate(-50%,-50%) scale(4.6);opacity:0}}
+.say{position:absolute;left:0;right:0;bottom:9vh;text-align:center;padding-inline:20px;will-change:opacity,transform}
+.say h1{font-size:clamp(2.4rem,6.4vw,6.2rem);font-weight:550;letter-spacing:-.045em;line-height:.98}
+.say p{margin:16px auto 0;font-size:clamp(1rem,1.3vw,1.2rem);color:#6E6A67;max-width:44ch}
+.cue2{display:inline-flex;align-items:center;gap:10px;margin-top:26px;font-size:14px;font-weight:600}
+.cue2 i{width:9px;height:9px;border-radius:50%;background:#E08C43;animation:cue 1.6s var(--e) infinite}
+@keyframes cue{0%{transform:translateY(-5px);opacity:0}40%{opacity:1}100%{transform:translateY(9px);opacity:0}}
+.nav{transition:opacity .5s,transform .6s var(--e)}
+body:not(.in) .nav{opacity:0;pointer-events:none;transform:translate(-50%,-14px)}
+#fazemos{padding-top:clamp(120px,22vh,240px)}
+.ghost{display:none}
+@media (prefers-reduced-motion:reduce){.ring,.cue2 i{animation:none}}
+/*SCENE_CSS*/
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div>
+<header class="nav glass">
+  <a href="#" aria-label="Oka"><!--WORD--></a>
+  <nav><a href="#fazemos">O que fazemos</a><a href="#produtos">Produtos</a><a href="#treinamentos">Treinamentos</a></nav>
+  <a class="btn" href="{{wa}}">Fale com a gente</a>
+</header>
+  <section class="intro">
+    <div class="pin">
+      <div class="top"><!--WORD--><a class="cta" href="{{wa}}">Fale com a gente</a></div>
+      <div class="mark"><i class="ring"></i><i class="ring"></i><i class="ring"></i><!--SYM--><span class="iris"></span></div>
+      <div class="say">
+        <h1>Tecnologia com raiz no futuro.</h1>
+        <p>Sistemas, aplicativos e agentes de IA feitos sob medida.</p>
+        <span class="cue2"><i></i>Role para entrar</span>
+      </div>
+    </div>
+  </section>
+<main class="wrap">
+  <section class="sec stage" id="fazemos" data-stage data-k="1">
+    <div class="rv">
+      <h2>Os trabalhos que entregamos</h2>
+      <div class="tabs" role="tablist" aria-label="O que fazemos">
+        <button data-tab role="tab"><span class="tt">Agentes de IA</span><span class="pg"></span><span class="tx"><span>Conversa com o cliente e executa: marca, confirma e avisa o time.</span></span></button>
+        <button data-tab role="tab"><span class="tt">Automação</span><span class="pg"></span><span class="tx"><span>Seus sistemas trocam dados sozinhos.</span></span></button>
+        <button data-tab role="tab"><span class="tt">Sites e landing pages</span><span class="pg"></span><span class="tx"><span>Páginas rápidas, com a cara da sua marca.</span></span></button>
+        <button data-tab role="tab"><span class="tt">Aplicativos</span><span class="pg"></span><span class="tx"><span>iPhone, Android e web, do desenho à loja.</span></span></button>
+      </div>
+    </div>
+    <div class="panels rv" style="--d:.1s">
+      <div data-panel><div class="glass"><!--DEMO:agente2--></div></div>
+      <div data-panel><div class="glass"><!--DEMO:rede--></div></div>
+      <div data-panel><div class="glass"><!--DEMO:site--></div></div>
+      <div data-panel><div class="glass"><!--DEMO:iphone--></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="produtos" data-k="2">
+    <div class="rv"><h2>Produtos da Oka</h2><p class="sub">Feitos por nós e já em uso.</p></div>
+    <div class="prods">
+      <article class="rv"><div class="glass"><!--DEMO:vereda--></div><h3>Vereda</h3><p>Gestão jurídica que acompanha as publicações e calcula os prazos.</p><a class="lnk" href="https://vereda.oka.dev.br">Conhecer o Vereda</a></article>
+      <article class="rv" style="--d:.08s"><div class="glass"><!--DEMO:locafacil--></div><h3>LocaFácil</h3><p>Imóveis, veículos e equipamentos alugados em um só app.</p><a class="lnk" href="https://apps.apple.com/br/app/locaf%C3%A1cil-alugue-tudo/id6776306781">Ver na App Store</a></article>
+      <article class="rv" style="--d:.16s"><div class="glass"><!--DEMO:meety--></div><h3>Meety</h3><p>Grava a reunião, transcreve e escreve a ata no seu Mac.</p><a class="lnk" href="https://meety.oka.dev.br">Conhecer o Meety</a></article>
+    </div>
+  </section>
+
+  <section class="sec" id="treinamentos" data-k="3">
+    <div class="rv"><h2>Sua equipe usando IA no trabalho.</h2><p class="sub">Cursos de Claude e Claude Code em três níveis, com exemplos do trabalho de vocês. Online ou presencial.</p></div>
+    <div class="trilha" id="trilha">
+      <svg class="tsvg" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true"><path class="tb" d="M-20 395 C150 395 190 330 330 300 C470 270 500 200 650 170 C800 140 850 60 1020 40"/><path class="tf" pathLength="1" d="M-20 395 C150 395 190 330 330 300 C470 270 500 200 650 170 C800 140 850 60 1020 40"/></svg>
+      <i class="tdot" aria-hidden="true"></i>
+      <article class="st glass"><svg viewBox="0 0 48 48"><path d="M10 12h28a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H24l-9 7v-7h-5a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/><path d="M15 20h18M15 26h11"/></svg><span class="lvl" aria-hidden="true"><i class=f></i><i></i><i></i></span><h3>Iniciante</h3><p>Do primeiro pedido ao uso diário.</p><ul><li>Primeiros passos</li><li>Bons pedidos</li><li>Resumir e redigir</li></ul></article>
+      <article class="st glass"><svg viewBox="0 0 48 48"><rect x="7" y="9" width="17" height="22" rx="3"/><rect x="24" y="17" width="17" height="22" rx="3"/><path d="M11 15h9M11 20h9M28 23h9M28 28h9M28 33h5"/></svg><span class="lvl" aria-hidden="true"><i class=f></i><i class=f></i><i></i></span><h3>Intermediário</h3><p>IA dentro das tarefas que se repetem.</p><ul><li>Fluxos recorrentes</li><li>Análise de documentos</li><li>Limites e segurança</li></ul></article>
+      <article class="st glass"><svg viewBox="0 0 48 48"><rect x="5" y="9" width="38" height="30" rx="5"/><path d="M13 19l6 5-6 5M24 30h10"/></svg><span class="lvl" aria-hidden="true"><i class=f></i><i class=f></i><i class=f></i></span><h3>Avançado</h3><p>Sua equipe construindo as próprias ferramentas.</p><ul><li>Claude Code</li><li>Automações</li><li>Agentes sob medida</li></ul></article>
+    </div>
+    <a class="lnk rv" href="{{wa:Olá! Quero saber dos treinamentos de IA da Oka.}}">Pedir um treinamento</a>
+  </section>
+
+  <section class="end" id="contato" data-k="4">
+    <canvas id="o3" class="rv" role="img" aria-label="Símbolo da Oka em 3D. Arraste para girar."></canvas>
+    <div class="et rv">
+      <h2>Conte o que trava o seu trabalho.</h2>
+      <p class="sub">Oka, uma empresa de tecnologia de Manaus, criada em 2024.</p>
+      <div class="acts"><a class="btn" href="{{wa}}">Chamar no WhatsApp</a><a class="btn" href="https://instagram.com/Oka.projects"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a></div>
+    </div>
+    <footer class="foot"><span>© 2026 Oka · Tecnologia com raiz no futuro</span><nav><a href="https://oka.dev.br/blog/">Blog</a><a href="https://instagram.com/Oka.projects">Instagram</a></nav></footer>
+  </section>
+</main>
+<script>
+
+/*COMMON_JS*/
+/* ---------- entrada: mergulho pelo ponto ---------- */
+const cl = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), ss = t => t * t * (3 - 2 * t);
+const intro = document.querySelector('.intro'), ipin = intro.querySelector('.pin'), mark = intro.querySelector('.mark'), iris = intro.querySelector('.iris'), say = intro.querySelector('.say');
+const introFrame = () => {
+  const vh = innerHeight, r = intro.getBoundingClientRect(), p = cl(-r.top / (r.height - vh));
+  if (r.bottom > 0) {
+    const sm = Math.hypot(innerWidth, vh) * 2.3 / (mark.offsetWidth * .2441), S = 1 + ss(cl(p / .7)) * 5;
+    mark.style.transform = `scale(${S})`;
+    iris.style.transform = `translate(-50%,-50%) scale(${(1 + Math.pow(cl((p - .05) / .58), 3) * (sm - 1)) / S})`;
+    say.style.opacity = 1 - cl(p / .15); say.style.transform = `translateY(${-p * 60}px)`;
+    ipin.style.opacity = 1 - ss(cl((p - .66) / .26)); ipin.style.pointerEvents = p > .7 ? 'none' : '';
+  }
+  document.body.classList.toggle('in', p > .9);
+  requestAnimationFrame(introFrame);
+};
+requestAnimationFrame(introFrame);
+/*SCENE_JS*/
+</script>
+</body>
+</html>
